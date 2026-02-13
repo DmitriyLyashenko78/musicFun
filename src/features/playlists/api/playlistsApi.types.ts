@@ -25,12 +25,28 @@ export type FetchPlaylistsArgs = {
   trackId?: string
 }
 
-export type CreatePlaylistArgs = z.infer<typeof createPlaylistSchema>
+// Это для формы (плоский объект)
+export type CreatePlaylistFormFields = z.infer<typeof createPlaylistSchema>
+
+// Это для API (вложенный объект согласно JSON:API)
+export type CreatePlaylistArgs = {
+  data: {
+    type: 'playlists'
+    attributes: CreatePlaylistFormFields
+  }
+}
+
+export type UpdatePlaylistFormFields = {
+  title: string
+  description: string | null
+  tagIds: string[]
+}
 
 export type UpdatePlaylistArgs = {
-  title: string
-  description: string
-  tagIds: string[]
+  data: {
+    type: 'playlists'
+    attributes: UpdatePlaylistFormFields
+  }
 }
 
 // WebSocket Events

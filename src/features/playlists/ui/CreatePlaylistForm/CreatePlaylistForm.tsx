@@ -2,7 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { type SubmitHandler, useForm } from 'react-hook-form'
 
 import { useCreatePlaylistMutation } from '@/features/playlists/api/playlistsApi.ts'
-import type { CreatePlaylistArgs } from '@/features/playlists/api/playlistsApi.types.ts'
+import type { CreatePlaylistArgs, CreatePlaylistFormFields } from '@/features/playlists/api/playlistsApi.types.ts'
 import { createPlaylistSchema } from '@/features/playlists/model/playlists.schemas.ts'
 
 import s from './CreatePlaylistForm.module.css'
@@ -13,12 +13,19 @@ export const CreatePlaylistForm = () => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<CreatePlaylistArgs>({ resolver: zodResolver(createPlaylistSchema) })
+  } = useForm<CreatePlaylistFormFields>({ resolver: zodResolver(createPlaylistSchema) })
 
   const [createPlaylist] = useCreatePlaylistMutation()
 
-  const onSubmit: SubmitHandler<CreatePlaylistArgs> = (data) => {
-    createPlaylist(data).unwrap().then(() => reset())
+  const onSubmit: SubmitHandler<CreatePlaylistFormFields> = (formData) => {
+    const payload: CreatePlaylistArgs = {
+      data: {
+        type: 'playlists',
+        attributes: formData,
+      },
+    }
+
+    createPlaylist(payload).unwrap().then(() => reset())
   }
 
   return (
