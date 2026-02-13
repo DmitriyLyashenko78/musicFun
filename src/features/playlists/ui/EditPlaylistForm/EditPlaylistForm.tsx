@@ -1,26 +1,22 @@
 import type { SubmitHandler, UseFormHandleSubmit, UseFormRegister } from 'react-hook-form'
 
 import { useUpdatePlaylistMutation } from '@/features/playlists/api/playlistsApi.ts'
-import type { UpdatePlaylistArgs } from '@/features/playlists/api/playlistsApi.types.ts'
+import type { UpdatePlaylistArgs, UpdatePlaylistFormFields } from '@/features/playlists/api/playlistsApi.types.ts'
 
-type UpdatePlaylistFields = {
-  title: string
-  description: string
-  tagIds: string[]
-}
+
 
 type Props = {
   playlistId: string
   setPlaylistId: (playlistId: null) => void
   editPlaylist: (playlist: null) => void
-  register: UseFormRegister<UpdatePlaylistFields>
-  handleSubmit: UseFormHandleSubmit<UpdatePlaylistFields>
+  register: UseFormRegister<UpdatePlaylistFormFields>
+  handleSubmit: UseFormHandleSubmit<UpdatePlaylistFormFields>
 }
 
 export const EditPlaylistForm = ({ playlistId, setPlaylistId, editPlaylist, handleSubmit, register }: Props) => {
   const [updatePlaylist] = useUpdatePlaylistMutation()
 
-  const onSubmit: SubmitHandler<UpdatePlaylistFields> = (formData) => {
+  const onSubmit: SubmitHandler<UpdatePlaylistFormFields> = (formData) => {
     if (!playlistId) return
 
     const payload: UpdatePlaylistArgs = {
