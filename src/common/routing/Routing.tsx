@@ -8,7 +8,7 @@ import { PlaylistsPage } from '@/features/playlists/ui/PlaylistsPage.tsx'
 import { TracksPage } from '@/features/tracks/ui/TracksPage.tsx'
 
 export const Path = {
-  Main: '/',
+  Main: 'musicFun',
   Playlists: '/playlists',
   Tracks: '/tracks',
   Profile: '/profile',
