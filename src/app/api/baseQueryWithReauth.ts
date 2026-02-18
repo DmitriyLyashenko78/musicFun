@@ -6,7 +6,6 @@ import { baseQuery } from '@/app/api/baseQuery.ts'
 import { AUTH_KEYS } from '@/common/constants'
 import { handleErrors, isTokens } from '@/common/utils'
 
-// create a new mutex
 const mutex = new Mutex()
 
 export const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (
